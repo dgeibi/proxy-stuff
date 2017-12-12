@@ -1,0 +1,16 @@
+[Unit]
+Description=MY_DNS
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/usr/share/pcap-dnsproxy
+ExecStartPre=/bin/bash -c "echo -e 'resolv_conf=/etc/resolv.conf\nname_servers=127.0.0.1' > /etc/resolvconf.conf"
+ExecStartPre=/usr/bin/resolvconf -u
+ExecStart=/usr/share/pcap-dnsproxy/Pcap_DNSProxy -c /etc/pcap-dnsproxy/
+GuessMainPID=yes
+ExecStopPost=/bin/bash -c "echo 'resolv_conf=/etc/resolv.conf' > /etc/resolvconf.conf"
+ExecStopPost=/usr/bin/resolvconf -u
+
+[Install]
+WantedBy=multi-user.target

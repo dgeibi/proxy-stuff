@@ -1,0 +1,12 @@
+[Unit]
+Description=SSR_REDIR
+After=network.target
+
+[Service]
+Type=idle
+ExecStartPre=/usr/bin/node /etc/proxyStuff/setup.js /etc/ssr-config/%i.json
+ExecStart=/usr/bin/ssr-redir -c /etc/proxyStuff/ssr.json
+ExecStopPost=/usr/bin/node /etc/proxyStuff/flush.js
+
+[Install]
+WantedBy=multi-user.target
