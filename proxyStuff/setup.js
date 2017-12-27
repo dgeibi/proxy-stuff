@@ -69,7 +69,9 @@ async function main() {
   ssConfig.server = server
   ssConfig['local_port'] = LOCAL_PORT
   ssConfig['local_address'] = LOCAL_ADDRESS
-  fs.writeFileSync(`${__dirname}/ssr.json`, JSON.stringify(ssConfig))
+  fs.writeFileSync(`${__dirname}/ssr.json`, JSON.stringify(ssConfig), {
+    mode: 0o600
+  })
 
   runSync(
     `${IPTABLES} -t nat -A ${IPTABLES_CHAIN} -p tcp -j REDIRECT --to-ports ${LOCAL_PORT}`
