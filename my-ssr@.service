@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=idle
 ExecStartPre=/usr/bin/node /etc/proxyStuff/setup.js /etc/ssr-config/%i.json
-ExecStart=/usr/bin/ssr-redir -c /etc/proxyStuff/ssr.json
+ExecStart=/bin/sh /etc/proxyStuff/run.sh
 ExecStopPost=/usr/bin/node /etc/proxyStuff/flush.js
 
 [Install]
